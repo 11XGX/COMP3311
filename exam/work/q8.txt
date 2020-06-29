@@ -1,0 +1,48 @@
+# COMP3311 12s1 Exam Q8
+
+(a)
+CREATE TABLE Employees (
+    id integer NOT NULL,
+    name text NOT NULL,
+    position text NOT NULL,
+    PRIMARY KEY (id)
+)
+
+CREATE TABLE PartTime (
+    employee_id integer NOT NULL REFERENCES Employees(id),
+    fraction float NOT NULL,
+    PRIMARY KEY (employee_id)
+)
+
+CREATE TABLE Casual (
+    employee_id integer NOT NULL REFERENCES Employees(id),
+    PRIMARY KEY (employee_id)
+)
+
+CREATE TABLE Hours (
+    employee_id integer NOT NULL REFERENCES Casual(employee_id),
+    date date NOT NULL,
+    starting time NOT NULL,
+    ending time NOT NULL,
+    UNIQUE (employee_id, date)
+    PRIMARY KEY (employee_id, date)
+    
+)
+
+We presume that the PartTime and Casual tuples link to exactly one Employee and conversely, one Employee has a single role defined by their position and disjoint relationship with a PartTime OR Casual entry.
+A Casual employee may or may not have hours recorded for when they worked.  However, Hours should be associated to one Casual employee with an associated date and times.
+Finally, by ensuring we have a unique combination of employee_id and date (our Hours primary key), we ensure they only work for one time period on any given day.
+
+(b)
+CREATE TABLE Employees (
+    id integer NOT NULL,
+    name text NOT NULL,
+    position text NOT NULL,
+    fraction float,
+    starting time,
+    ending time,
+    date date
+    PRIMARY KEY (id)
+)
+
+We have one entry for each Part-time employee and one to many entries for each Casual employee.

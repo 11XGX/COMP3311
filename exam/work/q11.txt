@@ -1,0 +1,12 @@
+# COMP3311 12s1 Exam Q11
+
+(a)
+{ A -> BC, DE -> F, ADE -> G
+
+(b)
+{ ABCDEFG }
+{ ADEFG, ABC }
+{ ADEG, DEF, ABC }
+
+(c)
+

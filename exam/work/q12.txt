@@ -1,0 +1,16 @@
+# COMP3311 12s1 Exam Q12
+
+(a)
+Answer = Proj[ename, eno](Sel[payRate > 20](Empl))
+
+(b)
+Temp1 = Emp1 Join (Proj[eno](Dept))
+Answer = Proj[ename](Temp1)
+
+(c)
+Temp1 = Proj[eno](Sel[day='mon'](Time))
+Temp2 = Proj[eno](Sel[day='tue'](Time))
+Temp3 = Proj[eno](Sel[day='wed'](Time))
+Temp4 = Proj[eno](Sel[day='thu'](Time))
+Temp5 = Proj[eno](Sel[day='fri'](Time))
+Answer = Proj[ename]((Temp1 Intersect Temp2 Intersect Temp3 Intersect Temp4 Intersect Temp5) Join Empl)

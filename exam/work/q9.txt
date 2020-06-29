@@ -1,0 +1,50 @@
+# COMP3311 12s1 Exam Q9
+
+(a)
+create or replace function
+fixCoursesOnAddCourseEnrolment() returns trigger as $$
+
+update Courses
+set nS = nS + 1
+if nS > 10 and (3 * nE) > nS then
+    if new.stueval != null then
+        set avgEval = ((avgEval * nE) + stueval) / (nE + 1)
+        set nE = nE + 1
+    end if
+endif
+where student = new.student and course = new.course; 
+
+$$ language plpgsql
+
+(b)
+create or replace function
+fixCoursesOnDropCourseEnrolment() returns trigger as $$
+
+update Courses
+set nS = nS - 1
+if nS > 10 and (3 * nE) > nS then
+    if new.stueval == null then
+        set avgEval = ((avgEval * nE) - stueval) / (nE - 1)
+        set nE = nE - 1
+    end if
+endif
+where student = new.student and course = new.course; 
+
+$$ language plpgsql
+
+(c)
+create or replace function
+fixCoursesOnModCourseEnrolment() returns trigger as $$
+
+update Courses
+set nS = nS - 1
+if nS > 10 and (3 * nE) > nS then
+    if new.stueval != null then
+        set avgEval = ((avgEval * nE) - stueval + new.stueval) / nE
+    else
+        set avgEval = ((avgEval * nE) - stueval) / (nE - 1)
+    end if
+endif
+where student = new.student and course = new.course; 
+
+$$ language plpgsql

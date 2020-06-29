@@ -1,0 +1,23 @@
+# COMP3311 12s1 Exam Q10
+
+(a)
+This script is finding the number of goals scored by each player in the database.  Its final output contains the player's name and the number of goals each player has scored.
+
+(b)
+1 + 500 = 501
+
+(c)
+import sqlite3
+conn = sqlite3.connect("footy.db")
+
+playerGoals = """
+select p.name, ifnull(count(p.id), 0) as goals
+from Goals g
+join Players p on (g.scoredBy = p.id)
+group by p.id
+"""
+
+c1.execute(playerGoals)
+for t in c1.fetchall():
+    name, ng = t
+    print (name, ng)
